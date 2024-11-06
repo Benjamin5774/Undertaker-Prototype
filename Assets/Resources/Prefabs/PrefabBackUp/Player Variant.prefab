@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1069229266338837497
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1696559585480292051, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_Height
+      value: 2.2056313
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696559585480292051, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5229807
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696559585480292051, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.004645467
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696559585480292051, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.1028156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696559585480292051, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151409089554108695, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151409089554108695, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151409089554108695, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151409089554108695, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.714
+      objectReference: {fileID: 0}
+    - target: {fileID: 2347990848462386955, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: extraEnergyPerDodge
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: e38ecd1dfb7a8a841a8cc3bedf974d4f,
+        type: 3}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: befabeb1ef509154b8251d2bd82c08f5,
+        type: 3}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: 072dd2b2a65305c4fa192612e733465a,
+        type: 3}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: 5956127d34213dc42a2f67727e0d9fa6,
+        type: 3}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: 466dfeae2598d0c45b524d1c6380e9b1,
+        type: 3}
+    - target: {fileID: 3326108791383854771, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: skillOrbPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 7588009013296255944, guid: 466dfeae2598d0c45b524d1c6380e9b1,
+        type: 3}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -32.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541175660654353402, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091221101143512097, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091221101143512097, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091221101143512097, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991764866200949872, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991764866200949872, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 1375560852638447293, guid: cb3c80bc05736024e90af0986a769dcb, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7991764866200949872, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3969667482605611516}
+    - targetCorrespondingSourceObject: {fileID: 7991764866200949872, guid: cb3c80bc05736024e90af0986a769dcb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1366776405739035099}
+  m_SourcePrefab: {fileID: 100100000, guid: cb3c80bc05736024e90af0986a769dcb, type: 3}
+--- !u!1 &6935219722816923529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7991764866200949872, guid: cb3c80bc05736024e90af0986a769dcb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1069229266338837497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3969667482605611516
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935219722816923529}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 0b304109ed7d13546aad9581e2f2209f, type: 3}
+  m_Controller: {fileID: 9100000, guid: 7cbf0e506027f264485279c072bd661a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1366776405739035099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935219722816923529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c1bf242e7bec44c9b52ab84c3b62f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6935219722816923529}
+  colliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  displayText: {fileID: 0}
+  messages:
+  - 'Park, Fun! '
+  - FunFunFun
+  - Haunted House, Fun!
+  - WuWuWu
+  - 5
