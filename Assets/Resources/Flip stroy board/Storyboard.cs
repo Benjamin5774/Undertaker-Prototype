@@ -16,6 +16,10 @@ public class StoryBoard : MonoBehaviour
     private float targetRotationX;
     private float currentRotationX;
 
+    void Start(){
+         player = GameObject.FindWithTag("Player");
+    }
+
     void Update()
     {
         if (isRotating)
@@ -39,8 +43,7 @@ public class StoryBoard : MonoBehaviour
         targetRotationX = currentRotationX + rotationAngle;
         isRotating = true;
     }
-    
-    //Ö´ÐÐÐý×ª
+ 
     private void RotateTowardsTarget()
     {
         float step = rotationSpeed * Time.deltaTime;  

@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
 
         if (!IsEnergyFull())
         {
-            Cam.GetComponent<CameraSwitch>().ShowOverheadView();
+            Cam.GetComponent<CameraSwitch>().ShowNarrativeView();
             // Check for dash input, only dash if not already dashing
             if (gameInput.IsJumpButtonPressed() && !isDashing)
             {

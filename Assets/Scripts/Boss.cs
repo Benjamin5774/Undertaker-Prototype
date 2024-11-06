@@ -243,10 +243,11 @@ private IEnumerator ChargeAttack(int times)
 
         // Instantiate the boss shadow at the target position, facing the same direction as the boss
         GameObject bossShadow = Instantiate(bossShadowPrefab, targetPos, Quaternion.LookRotation(transform.forward));
-        bossShadow.transform.localScale = transform.localScale * 0.8f; // Adjust size as necessary
+        bossShadow.transform.localScale = transform.localScale * 0.8f; 
 
         // Start charge preparation and add a longer pause
-        yield return StartCoroutine(StopMoving(currentChargePrepareTime + 0.5f)); // Additional wait time
+        yield return StartCoroutine(StopMoving(currentChargePrepareTime)); 
+        yield return new WaitForSeconds(1.0f);
 
         // Start charge effect and move towards the target position
         chargeEffect.Play();
