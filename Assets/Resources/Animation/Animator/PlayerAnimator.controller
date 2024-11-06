@@ -989,6 +989,9 @@ AnimatorStateTransition:
     m_ConditionEvent: Running
     m_EventTreshold: 0
   - m_ConditionMode: 1
+    m_ConditionEvent: isDashing0
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
     m_ConditionEvent: isDashing
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
