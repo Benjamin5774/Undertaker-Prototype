@@ -502,7 +502,7 @@ Camera:
     height: 1
   near clip plane: 2.12
   far clip plane: 65
-  field of view: 65.2
+  field of view: 35
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -528,8 +528,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.45864645, y: 0.003529131, z: -0.001679311, w: 0.88861024}
-  m_LocalPosition: {x: -0.14312364, y: 11.682971, z: -7.412108}
+  m_LocalRotation: {x: 0.08721436, y: 0, z: 0, w: 0.9961896}
+  m_LocalPosition: {x: -2.99, y: 3.7808127, z: -44.129417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   player: {fileID: 1564423312}
   bossMaxHealth: 100
   bossMoveSpeed: 2.5
-  bossHealth: 100
+  bossHealth: 40
   teleportDistance: 3
   teleportDelay: 2
   chargePrepareTime: 1
