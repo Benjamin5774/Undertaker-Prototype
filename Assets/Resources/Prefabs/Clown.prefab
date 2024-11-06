@@ -123,8 +123,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1013789574814989972}
   - {fileID: 1944552587882754501}
+  - {fileID: 1013789574814989972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6535618740628463542
@@ -158,12 +158,6 @@ MonoBehaviour:
   chargeOffset: 2
   numberOfCharges: 2
   rangedDamage: 5
-  teleportDistance: 3
-  teleportDelay: 2
-  minActionCooldown: 5
-  maxActionCooldown: 10
-  teleportEffect: {fileID: 0}
-  chargeEffect: {fileID: 0}
 --- !u!195 &5665769957598169497
 NavMeshAgent:
   m_ObjectHideFlags: 0

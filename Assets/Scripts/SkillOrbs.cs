@@ -63,14 +63,14 @@ public class SkillOrbs : MonoBehaviour
     {
         float damage = 30f;
         Debug.Log("DealDamage skill activated!");
-        enemyObject.GetComponent<EnemyTest>().TakeDamage(damage);
+        enemyObject.GetComponent<Boss>().TakeDamage(damage);
     }
 
     private void ApplyDebuff()
     {
 
         Debug.Log("ApplyDebuff skill activated!");
-        enemyObject.GetComponent<EnemyTest>().TakeDebuff(30f);
+        enemyObject.GetComponent<Boss>().TakeDamage(30f);
 
     }
      private void ActivateShield(){

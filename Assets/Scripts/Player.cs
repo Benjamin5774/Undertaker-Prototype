@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         playerRig = GetComponent<Rigidbody>();
         energyBar.fillAmount = energy;
         energyBarExtra.fillAmount = 0;
+        
         animator = GetComponent<Animator>(); 
 
         // Initialize the skill orbs
@@ -317,7 +318,7 @@ public class Player : MonoBehaviour
     }
 
     public void ApplyDamage() {
-        enemy.GetComponent<EnemyTest>().TakeDamage(Damage);
+        enemy.GetComponent<Boss>().TakeDamage(Damage);
     }
 
 }

@@ -40,18 +40,7 @@ public class EnemyTest : MonoBehaviour
     [SerializeField] private int numberOfCharges = 2;
     [SerializeField] private float rangedDamage = 5f;
 
-    [Header("Teleport Settings")]
-    [SerializeField] private float teleportDistance = 3f;
-    [SerializeField] private float teleportDelay = 2f;
 
-    [Header("Action Cooldown")]
-    [SerializeField] private float minActionCooldown = 5f;
-    [SerializeField] private float maxActionCooldown = 10f;
-    private float actionCooldownTimer;
-
-    [Header("Effects")]
-    [SerializeField] private ParticleSystem teleportEffect;
-    [SerializeField] private ParticleSystem chargeEffect;
 
     private float currentChargeSpeed;
     private float currentChargePrepareTime;
@@ -68,7 +57,6 @@ public class EnemyTest : MonoBehaviour
         currentChargeSpeed = chargeSpeed;
         currentChargePrepareTime = chargePrepareTime;
         currentRotationSpeed = normalMoveSpeed;
-        actionCooldownTimer = Random.Range(minActionCooldown, maxActionCooldown);
 
        //  agent = GetComponent<NavMeshAgent>();
        // agent.updateRotation = false; // Manual rotation control
