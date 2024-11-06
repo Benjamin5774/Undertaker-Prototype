@@ -50,10 +50,10 @@ public class SkillOrbs : MonoBehaviour
         switch (skillType)
         {
             case SkillType.Damage:
-                StartCoroutine(FlyToEnemy(DealDamage));
+                DealDamage();
                 break;
             case SkillType.Debuff:
-                StartCoroutine(FlyToEnemy(ApplyDebuff));
+                ApplyDebuff();
                 break;
             case SkillType.Block:
                 ActivateShield();
@@ -79,20 +79,4 @@ public class SkillOrbs : MonoBehaviour
      private void ActivateShield(){
         Debug.Log("ActivateShield skill activated!");
      }
-
-    private IEnumerator FlyToEnemy(System.Action onHitAction)
-    {
-        // Continue moving towards the enemy until within a small distance
-        while (Vector3.Distance(transform.position, enemyObject.transform.position) > 0.1f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, enemyObject.transform.position, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        // Perform the skill effect on the enemy
-        onHitAction.Invoke();
-
-        // Destroy the orb after hitting the enemy
-        Destroy(gameObject);
-    }
 }
