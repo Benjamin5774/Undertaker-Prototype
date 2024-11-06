@@ -11,7 +11,7 @@ public class DisplayText : MonoBehaviour
     [SerializeField] private string[] messages = { "1", "2", "3", "4", "5" }; 
 
     private Coroutine displayCoroutine;
-     private bool[] hasTriggered; // 每个触发标记
+     private bool[] hasTriggered; 
 
     private void Start()
     {
@@ -32,14 +32,14 @@ public class DisplayText : MonoBehaviour
      // {
         Debug.Log("Player detected!");
 
-        // 显示对应的文字
+       
         for (int i = 0; i < colliders.Length; i++)
         {
             if (other == colliders[i] && !hasTriggered[i])
             {
                 Debug.Log("Player triggered Collider " + (i + 1));
                 ShowMessage(i);
-                hasTriggered[i] = true; // 标记当前Collider为已触发
+                hasTriggered[i] = true; 
                 break;
             }
        // }
