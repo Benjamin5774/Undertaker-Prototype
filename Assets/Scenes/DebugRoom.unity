@@ -496,7 +496,7 @@ Camera:
     height: 1
   near clip plane: 2.12
   far clip plane: 65
-  field of view: 35
+  field of view: 65.2
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -522,8 +522,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08721436, y: 0, z: 0, w: 0.9961896}
-  m_LocalPosition: {x: -2.99, y: 3.7808127, z: -44.129417}
+  m_LocalRotation: {x: 0.45864645, y: 0.003529131, z: -0.001679311, w: 0.88861024}
+  m_LocalPosition: {x: -0.14312364, y: 11.682971, z: -7.412108}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1377,6 +1377,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clown
       objectReference: {fileID: 0}
+    - target: {fileID: 4469518946477634672, guid: 065a74f242c4c10449f9ff485fff6940,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5665769957598169497, guid: 065a74f242c4c10449f9ff485fff6940,
         type: 3}
       propertyPath: m_Speed
@@ -1442,7 +1447,10 @@ PrefabInstance:
       propertyPath: actionCooldownTimer
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6535618740628463542, guid: 065a74f242c4c10449f9ff485fff6940, type: 3}
+    - {fileID: 5665769957598169497, guid: 065a74f242c4c10449f9ff485fff6940, type: 3}
+    - {fileID: 1861892467399676436, guid: 065a74f242c4c10449f9ff485fff6940, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1633,7 +1641,7 @@ GameObject:
   - component: {fileID: 803945017}
   m_Layer: 0
   m_Name: LevelOneBoss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1696,12 +1704,6 @@ MonoBehaviour:
   chargeOffset: 4
   numberOfCharges: 3
   rangedDamage: 5
-  teleportDistance: 3
-  teleportDelay: 2
-  minActionCooldown: 3
-  maxActionCooldown: 3
-  teleportEffect: {fileID: 0}
-  chargeEffect: {fileID: 0}
 --- !u!195 &803945014
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1737,9 +1739,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2468357031948092727}
+  bossShadowPrefab: {fileID: 1948860849}
   bossMaxHealth: 100
-  bossMoveSpeed: 2.5
+  bossMoveSpeed: 5
   bossHealth: 40
+  slowFactor: 1000
   teleportDistance: 3
   teleportDelay: 2
   chargePrepareTime: 1
@@ -1748,6 +1752,11 @@ MonoBehaviour:
   minActionCooldown: 3
   maxActionCooldown: 3
   closeRangeThreshold: 1
+  frontDamage: 1
+  sideDamage: 1.1
+  backDamage: 1.5
+  healthBarCanvas: {fileID: 2040982095}
+  healthBar: {fileID: 228557477}
   teleportEffect: {fileID: 448346009}
   chargeEffect: {fileID: 2126227302}
   currentState: 0
@@ -3217,6 +3226,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912477835}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1948860849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4469518946477634672, guid: 065a74f242c4c10449f9ff485fff6940,
+    type: 3}
+  m_PrefabInstance: {fileID: 622697832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1960499914
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,7 +3934,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 1752505135}
+      objectReference: {fileID: 803945016}
     - target: {fileID: 4799239895550625238, guid: 6caf109dd0e558e45a6aa80ad6cd0691,
         type: 3}
       propertyPath: energyBar
