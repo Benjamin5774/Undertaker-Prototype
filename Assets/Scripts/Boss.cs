@@ -108,10 +108,10 @@ public class Boss : MonoBehaviour
     private void AdjustSpeedsBasedOnPlayerEnergy()
     {
         bool isPlayerEnergyFull = player.GetComponent<Player>().IsEnergyFull();
-        // currentMoveSpeed = isPlayerEnergyFull ? bossMoveSpeed / slowFactor : bossMoveSpeed;
-        // currentChargeSpeed = isPlayerEnergyFull ? chargeSpeed / slowFactor : chargeSpeed;
-        // currentChargePrepareTime = isPlayerEnergyFull ? chargePrepareTime / slowFactor : chargePrepareTime;
-        // currentTeleportDelay = isPlayerEnergyFull ? teleportDelay * slowFactor : teleportDelay;
+        currentMoveSpeed = isPlayerEnergyFull ? bossMoveSpeed / slowFactor : bossMoveSpeed;
+        currentChargeSpeed = isPlayerEnergyFull ? chargeSpeed / slowFactor : chargeSpeed;
+        currentChargePrepareTime = isPlayerEnergyFull ? chargePrepareTime / slowFactor : chargePrepareTime;
+        currentTeleportDelay = isPlayerEnergyFull ? teleportDelay * slowFactor : teleportDelay;
     }
 
     private void DisplayHealthBarBasedOnPlayerEnergy()
