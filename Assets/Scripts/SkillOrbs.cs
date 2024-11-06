@@ -1,9 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class SkillOrbs : MonoBehaviour
 {
     private Vector3 originalScale; // To store the original scale of the orb
     [SerializeField] private Vector3 hoverScale = new Vector3(0.35f, 0.35f, 0.35f);
+
+       [SerializeField] private float moveSpeed = 10f;
 
     // Enum to define different skill types
     public enum SkillType
@@ -47,10 +50,10 @@ public class SkillOrbs : MonoBehaviour
         switch (skillType)
         {
             case SkillType.Damage:
-                DealDamage();
+                StartCoroutine(FlyToEnemy(DealDamage));
                 break;
             case SkillType.Debuff:
-                ApplyDebuff();
+                StartCoroutine(FlyToEnemy(ApplyDebuff));
                 break;
             case SkillType.Block:
                 ActivateShield();
@@ -76,4 +79,20 @@ public class SkillOrbs : MonoBehaviour
      private void ActivateShield(){
         Debug.Log("ActivateShield skill activated!");
      }
+
+    private IEnumerator FlyToEnemy(System.Action onHitAction)
+    {
+        // Continue moving towards the enemy until within a small distance
+        while (Vector3.Distance(transform.position, enemyObject.transform.position) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, enemyObject.transform.position, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // Perform the skill effect on the enemy
+        onHitAction.Invoke();
+
+        // Destroy the orb after hitting the enemy
+        Destroy(gameObject);
+    }
 }

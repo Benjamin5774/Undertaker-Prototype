@@ -61,7 +61,8 @@ public class Boss : MonoBehaviour
     {
         cooldown,
         makeDecision,
-        doAction
+        doAction,
+        paused
     }
     public State currentState = State.cooldown;
 
@@ -86,6 +87,20 @@ public class Boss : MonoBehaviour
         AdjustSpeedsBasedOnPlayerEnergy();
         DisplayHealthBarBasedOnPlayerEnergy();
 
+         if (player.GetComponent<Player>().IsEnergyFull())
+        {
+            if (currentState != State.paused)
+            {
+                StartCoroutine(PauseBossWhilePlayerEnergyFull());
+            }
+        }
+        else if (currentState == State.paused)
+        {
+            // Reset to cooldown state when player's energy is no longer full
+            currentState = State.cooldown;
+        
+        }
+
         if (currentState == State.cooldown)
         {
             actionCooldownTimer -= Time.deltaTime;
@@ -100,9 +115,31 @@ public class Boss : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetDistanceDirection();
-        SetAgentMovement();
-        Debug.Log(teleportDelay);
+ if (currentState != State.paused) // Only perform actions when not paused
+        {
+            GetDistanceDirection();
+            SetAgentMovement();
+        }
+        Debug.Log(currentState);
+    }
+
+ private IEnumerator PauseBossWhilePlayerEnergyFull()
+    {
+        currentState = State.paused; // Enter paused state
+        float savedMoveSpeed = currentMoveSpeed; // Save current speeds
+        currentMoveSpeed = 0f; // Stop movement
+        
+        animator.SetBool("Run", false); // Set idle animation
+
+        while (player.GetComponent<Player>().IsEnergyFull())
+        {
+            yield return null; // Continue waiting while player's energy is full
+        }
+
+        // Restore move speed and reset state to cooldown when energy is empty
+        currentMoveSpeed = savedMoveSpeed;
+        currentState = State.cooldown;
+        animator.SetBool("Run", true); // Stop idle animation
     }
 
     private void AdjustSpeedsBasedOnPlayerEnergy()
