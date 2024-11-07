@@ -198,12 +198,28 @@ public class Boss : MonoBehaviour
     }
 
     private IEnumerator StopMoving(float stopTime)
-    {
-        float savedSpeed = currentMoveSpeed;
-        currentMoveSpeed = 0;
-        yield return new WaitForSeconds(stopTime);
-        currentMoveSpeed = savedSpeed;
-    }
+{
+    // Disable the NavMeshAgent to stop all movement
+    agent.isStopped = true;
+
+    // Play idle animation while paused
+    animator.SetBool("Run", false);
+
+    // Wait for the specified stop time
+    yield return new WaitForSeconds(stopTime);
+
+    // Re-enable the NavMeshAgent and resume movement
+    agent.isStopped = false;
+    animator.SetBool("Run", true);
+}
+
+    // private IEnumerator StopMoving(float stopTime)
+    // {
+    //     float savedSpeed = currentMoveSpeed;
+    //     currentMoveSpeed = 0;
+    //     yield return new WaitForSeconds(stopTime);
+    //     currentMoveSpeed = savedSpeed;
+    // }
 
     private IEnumerator PrepareTeleport(int attackType)
     {
@@ -247,7 +263,6 @@ private IEnumerator ChargeAttack(int times)
 
         // Start charge preparation and add a longer pause
         yield return StartCoroutine(StopMoving(currentChargePrepareTime)); 
-        yield return new WaitForSeconds(1.0f);
 
         // Start charge effect and move towards the target position
         chargeEffect.Play();

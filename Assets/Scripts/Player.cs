@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -18,167 +17,150 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float distance = 5.0f;
-    [SerializeField] private float dashDuration = 0.2f; // Added dash duration
+    [SerializeField] private float dashDuration = 0.2f;
 
-    //Energy bar 
+    // Energy bar 
     [Header("Energy")]
     [SerializeField] private Image energyBar, energyBarExtra;
 
     [SerializeField] private float maxEnergy, dashGain, energyFill, extraEnergyPerDodge;
 
     [Header("Skill Orbs")]
-    [SerializeField] private GameObject[] skillOrbPrefabs; // Array of different skill orb prefabs
-    private GameObject[] skillOrbInstances = new GameObject[4]; // Array to store the four instantiated skill orbs
-    [SerializeField] private Vector3[] orbOffsets = new Vector3[4]; // Array for position offsets of each orb
+    [SerializeField] private GameObject[] skillOrbPrefabs;
+    private GameObject[] skillOrbInstances = new GameObject[4];
+    [SerializeField] private Vector3[] orbOffsets = new Vector3[4];
 
-    private SkillOrbs currentHoveredOrb; // Keep track of the currently hovered orb
+    private SkillOrbs currentHoveredOrb;
 
-    //Player damage setting
     [Header("Player Damage Setting")]
     public float Damage;
 
-
     private float energy;
-
     private float dashCount;
     private float rotateSpeed = 10f;
     private bool isWalking;
     private bool isDashing;
-    public bool isEnergyFull; //To track whether the energy bar is full
+    private bool isInBattle = false; // flag for battle state
+    public bool isEnergyFull;
 
-    private Color targetColor; // The target color to transition to
-    private float colorChangeInterval = 0.5f; // Time between color changes 
-    private float colorChangeTimer; // Timer to track color changes
+    [SerializeField] private bool isInNarrativeHall = true; // bool to check if in Narrative Hall
 
+    private Color targetColor;
+    private float colorChangeInterval = 0.5f;
+    private float colorChangeTimer;
 
     private void Awake()
     {
         playerRig = GetComponent<Rigidbody>();
         energyBar.fillAmount = energy;
         energyBarExtra.fillAmount = 0;
-        
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
 
         // Initialize the skill orbs
-        // Define offsets for top, bottom, left, and right orbs relative to the player
-        orbOffsets[0] = new Vector3(0.95f, 1.5f, 0);  // Top
-        orbOffsets[1] = new Vector3(0.95f, 1, 0); // Bottom
-        orbOffsets[2] = new Vector3(0.7f, 1.25f, 0); // Left
-        orbOffsets[3] = new Vector3(1.2f, 1.25f, 0);  // Right
+        orbOffsets[0] = new Vector3(0.95f, 1.5f, 0);
+        orbOffsets[1] = new Vector3(0.95f, 1, 0);
+        orbOffsets[2] = new Vector3(0.7f, 1.25f, 0);
+        orbOffsets[3] = new Vector3(1.2f, 1.25f, 0);
 
-        // Instantiate the skill orbs using different prefabs and hide them initially
         for (int i = 0; i < 4; i++)
         {
-            Vector3 spawnPosition = transform.position + orbOffsets[i]; // Calculate the spawn position
+            Vector3 spawnPosition = transform.position + orbOffsets[i];
             skillOrbInstances[i] = Instantiate(skillOrbPrefabs[i], spawnPosition, Quaternion.identity);
-            skillOrbInstances[i].transform.parent = transform; // Set each orb as a child of the player
-            skillOrbInstances[i].SetActive(false); // Hide the orbs initially
+            skillOrbInstances[i].transform.parent = transform;
+            skillOrbInstances[i].SetActive(false);
         }
     }
 
     private void Update()
     {
-        // Fill the energy bar over time
-        energy += energyFill * Time.deltaTime;
-        if (energy > maxEnergy)
+        if (isInBattle) // Only accumulate energy when in battle
         {
-            energy = maxEnergy;
-            energyBarExtra.fillAmount = dashCount * extraEnergyPerDodge / maxEnergy;
-        }
-        energyBar.fillAmount = energy / maxEnergy;
+            energy += energyFill * Time.deltaTime;
+            if (energy > maxEnergy)
+            {
+                energy = maxEnergy;
+                energyBarExtra.fillAmount = dashCount * extraEnergyPerDodge / maxEnergy;
+            }
+            energyBar.fillAmount = energy / maxEnergy;
 
-        // Assign random color to the extra energy bar
-        UpdateEnergyBarExtraColor();
+            UpdateEnergyBarExtraColor();
+        }
 
         if (!IsEnergyFull())
         {
-            Cam.GetComponent<CameraSwitch>().ShowNarrativeView();
-            // Check for dash input, only dash if not already dashing
-            if (gameInput.IsJumpButtonPressed() && !isDashing)
+            if (isInNarrativeHall)
             {
-                Debug.Log("dash");
-               // animator.SetBool("isDashing", true);
-               // animator.SetBool("Running", false);
-                animator.SetTrigger("isDashing"); 
-                StartCoroutine(DashCoroutine()); // Use coroutine for smooth dash
-              
-                dashCount++;
-                energy += dashGain;
-                
+                Cam.GetComponent<CameraSwitch>().ShowNarrativeView();
+            }
+            else
+            {
+                Cam.GetComponent<CameraSwitch>().ShowOverheadView();
             }
 
-            // Get the movement vector from GameInput script
-            Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+            if (gameInput.IsJumpButtonPressed() && !isDashing)
+            {
+                animator.SetTrigger("isDashing");
+                StartCoroutine(DashCoroutine());
+                dashCount++;
+                energy += dashGain;
+            }
 
-            // Move the player with the moveSpeed value
+            Vector2 inputVector = gameInput.GetMovementVectorNormalized();
             Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
             transform.position += moveDir * moveSpeed * Time.deltaTime;
 
-            // Smooth rotation towards movement direction
             if (moveDir != Vector3.zero)
             {
                 transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
             }
 
             isWalking = moveDir != Vector3.zero;
-            
-           // animator.SetBool("isDashing", false);
             animator.SetBool("Running", isWalking);
-          
         }
-
         else
         {
             LockOnEnemy();
             ShowSkillOrbs();
             HandleMouseHover();
 
-            // Check for normal attack input
             if (gameInput.IsNormalAttackButtonPressed() && !isDashing)
             {
-                Debug.Log("Normal Attack");
                 ApplyDamage();
                 ResetEnergy();
             }
 
-            // Skills
-            if(gameInput.IsSkillButtonPressed()&& currentHoveredOrb != null){
-                currentHoveredOrb.ActivateSkill(); // Activate the skill of the hovered orb
+            if (gameInput.IsSkillButtonPressed() && currentHoveredOrb != null)
+            {
+                currentHoveredOrb.ActivateSkill();
                 ResetEnergy();
             }
-
         }
-
     }
 
-    // Coroutine for smooth dash
     private IEnumerator DashCoroutine()
     {
         isDashing = true;
-
 
         RaycastHit hit;
         Vector3 startPosition = transform.position;
         Vector3 destination = transform.position + transform.forward * distance;
 
-        // Check if there's an obstacle in the path with the "Wall" tag
         if (Physics.Linecast(transform.position, destination, out hit))
         {
-            if (hit.collider.CompareTag("Wall")) // Check if the hit object has the "Wall" tag
+            if (hit.collider.CompareTag("Wall"))
             {
                 destination = transform.position + transform.forward * (hit.distance - 1f);
             }
         }
 
-        // Ensure the destination is grounded only if the object hit has the "Wall" tag
         if (Physics.Raycast(destination, -Vector3.up, out hit))
         {
-            if (hit.collider.CompareTag("Wall")) // Check if the hit object has the "Wall" tag
+            if (hit.collider.CompareTag("Wall"))
             {
                 destination = hit.point;
             }
         }
-        // Smoothly move the player over the dash duration
+
         float elapsed = 0f;
         while (elapsed < dashDuration)
         {
@@ -187,11 +169,8 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the player is at the final destination
         transform.position = destination;
-
         isDashing = false;
-     
     }
 
     public bool IsWalking()
@@ -201,15 +180,7 @@ public class Player : MonoBehaviour
 
     public bool IsEnergyFull()
     {
-        // Check if energy is 100 and disable movement
-        if (energy >= maxEnergy)
-        {
-            isEnergyFull = true; // Disable movement
-        }
-        else
-        {
-            isEnergyFull = false; // Enable movement if energy is below 100
-        }
+        isEnergyFull = energy >= maxEnergy;
         return isEnergyFull;
     }
 
@@ -217,11 +188,10 @@ public class Player : MonoBehaviour
     {
         colorChangeTimer += Time.deltaTime;
 
-        // If the timer exceeds the color change interval, generate a new target color
         if (colorChangeTimer >= colorChangeInterval)
         {
             targetColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            colorChangeTimer = 0f; // Reset the timer
+            colorChangeTimer = 0f;
         }
 
         energyBarExtra.color = Color.Lerp(energyBarExtra.color, targetColor, Time.deltaTime * 2.0f);
@@ -229,15 +199,14 @@ public class Player : MonoBehaviour
 
     private void ResetEnergy()
     {
-        //reset the energy bar after player's action
         energy = 0;
         dashCount = 0;
         energyBarExtra.fillAmount = 0;
         HideSkillOrbs();
     }
+
     private void LockOnEnemy()
     {
-        // Rotate the player to face the enemy
         Vector3 directionToEnemy = (enemy.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToEnemy.x, 0, directionToEnemy.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
@@ -246,82 +215,84 @@ public class Player : MonoBehaviour
 
     private void ShowSkillOrbs()
     {
-        // Show all 4 skill orbs
-        for (int i = 0; i < 4; i++)
+        foreach (GameObject orb in skillOrbInstances)
         {
-            if (skillOrbInstances[i] != null)
+            if (orb != null)
             {
-                skillOrbInstances[i].SetActive(true); // Show each orb
+                orb.SetActive(true);
             }
         }
     }
 
     private void HideSkillOrbs()
     {
-        // Hide all 4 skill orbs
-        for (int i = 0; i < 4; i++)
+        foreach (GameObject orb in skillOrbInstances)
         {
-            if (skillOrbInstances[i] != null)
+            if (orb != null)
             {
-                skillOrbInstances[i].SetActive(false); // Hide each orb
+                orb.SetActive(false);
             }
         }
-        Debug.Log("Skill orbs hidden.");
     }
 
-    // https://www.youtube.com/watch?v=qYnAkMGbgwo&t=218s
-      private void HandleMouseHover()
+    private void HandleMouseHover()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        // Cast a ray from the camera to the mouse position
         if (Physics.Raycast(ray, out hit))
         {
-            // Check if the ray hit a skill orb
             SkillOrbs skillOrb = hit.collider.GetComponent<SkillOrbs>();
             if (skillOrb != null)
             {
-                // If the orb is hovered for the first time, call the hover function
                 if (currentHoveredOrb != skillOrb)
                 {
-                    // Unhover the previous orb
                     if (currentHoveredOrb != null)
                     {
                         currentHoveredOrb.OnHover(false);
                     }
 
-                    // Hover the new orb
                     currentHoveredOrb = skillOrb;
                     currentHoveredOrb.OnHover(true);
                 }
             }
-            else
-            {
-                // If the ray didn't hit any orb, unhover the currently hovered orb
-                if (currentHoveredOrb != null)
-                {
-                    currentHoveredOrb.OnHover(false);
-                    currentHoveredOrb = null;
-                }
-            }
-        }
-        else
-        {
-            // If nothing is hit by the ray, unhover the currently hovered orb
-            if (currentHoveredOrb != null)
+            else if (currentHoveredOrb != null)
             {
                 currentHoveredOrb.OnHover(false);
                 currentHoveredOrb = null;
             }
         }
+        else if (currentHoveredOrb != null)
+        {
+            currentHoveredOrb.OnHover(false);
+            currentHoveredOrb = null;
+        }
     }
 
-    public void ApplyDamage() {
+    public void ApplyDamage()
+    {
         enemy.GetComponent<Boss>().TakeDamage(Damage);
     }
 
+    // Call this method to start energy accumulation when the player enters battle
+    public void StartBattle()
+    {
+        isInBattle = true;
+    }
+
+    // Call this method to stop energy accumulation when the player exits battle
+    public void EndBattle()
+    {
+        isInBattle = false;
+        ResetEnergy();
+    }
+
+    public void SetNarrativeHallMode(bool inNarrativeHall)
+    {
+        isInNarrativeHall = inNarrativeHall;
+    }
 }
+
 
 
 // using UnityEditor.Experimental.GraphView;
